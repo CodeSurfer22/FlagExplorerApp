@@ -40,6 +40,12 @@ jobs:
     - name: Publish Blazor Frontend
       run: dotnet publish FlagExplorer.Client/FlagExplorer.Client.csproj -c Release -o ./publish/frontend
 
+    - name: List published backend files
+      run: dir ./publish/backend/
+
+    - name: List published frontend files
+      run: dir ./publish/frontend/
+
     - name: Upload Backend Artifact
       uses: actions/upload-artifact@v2
       with:
