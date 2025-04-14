@@ -1,0 +1,35 @@
+﻿@page "/country/{Name}"
+@inject HttpClient Http
+@using FlagExplorer.Shared.Models
+@using System.Text.Json;
+
+
+<h3>Country Details</h3>
+
+@if (country == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <img src="@country.FlagUrl" alt="@country.CommonName" class="img-fluid" />
+    <h4>@country.CommonName</h4>
+    <p>Capital: @country.CapitalCity</p>
+    <p>Population: @country.Population</p>
+}
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    private Country country;  // Use the 'Country' class from FlagExplorer.Shared.Models
+
+    protected override async Task OnInitializedAsync()
+    {
+        country = await Http.GetFromJsonAsync<Country>($"http://localhost:5070/api/countries/{Name}");
+        var response = await Http.GetStringAsync($"http://localhost:5070/api/countries/{Name}");
+        Console.WriteLine(response);  // Log the raw JSON for debugging
+        var _country = JsonSerializer.Deserialize<Country>(response);
+
+    }
+}

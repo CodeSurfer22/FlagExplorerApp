@@ -1,0 +1,33 @@
+﻿@page "/"
+@using FlagExplorer.Shared.Models
+@inject HttpClient Http
+
+<h3>Country Flags</h3>
+
+@if (countries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var country in countries)
+        {
+            <div class="col-md-3">
+                <a href="@($"/country/{country.CommonName}")">
+                    <img src="@country.FlagUrl" alt="@country.CommonName" class="img-fluid" />
+                    <p>@country.CommonName</p>
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Country> countries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await Http.GetFromJsonAsync<List<Country>>("http://localhost:5070/api/countries");
+    }
+}

@@ -1,0 +1,21 @@
+# Ignore Visual Studio temporary files, build results, and user-specific files
+
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+Generated_Code/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Rider and VS Code config folders
+.idea/
+.vscode/
+
+# Other
+*.log

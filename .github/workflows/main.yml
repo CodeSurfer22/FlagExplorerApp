@@ -1,0 +1,48 @@
+name: Build and Test (.NET & Blazor)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore Dependencies
+      run: dotnet restore FlagExplorerApp.sln
+
+    - name: Build Solution
+      run: dotnet build FlagExplorerApp.sln --no-restore --configuration Release
+
+    - name: Run Backend Tests
+      run: |
+        dotnet test FlagExplorer.Server.Tests/FlagExplorer.Server.Tests.csproj --no-build --verbosity normal
+
+    - name: Run Frontend Tests
+      run: |
+        dotnet test FlagExplorer.Client.Tests/FlagExplorer.Client.Tests.csproj --no-build --verbosity normal
+
+    - name: Publish Backend
+      run: |
+        dotnet publish FlagExplorer.Server/FlagExplorer.Server.csproj -c Release -o ./publish/backend
+
+    - name: Publish Frontend (Blazor)
+      run: |
+        dotnet publish FlagExplorer.Client/FlagExplorer.Client.csproj -c Release -o ./publish/frontend
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: flag-explorer-package
+        path: ./publish/
