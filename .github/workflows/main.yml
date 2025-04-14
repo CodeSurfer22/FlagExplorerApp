@@ -1,5 +1,5 @@
 name: Build and Test (.NET & Blazor)
-
+# test
 on:
   push:
     branches: [ "main" ]
