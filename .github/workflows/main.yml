@@ -47,13 +47,13 @@ jobs:
       run: dir ./publish/frontend/
 
     - name: Upload Backend Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2.2.4
       with:
         name: backend
         path: ./publish/backend/
 
     - name: Upload Frontend Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2.2.4
       with:
         name: frontend
         path: ./publish/frontend/
