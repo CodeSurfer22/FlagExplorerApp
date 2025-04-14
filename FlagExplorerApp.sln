@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlagExplorer.Shared", "Flag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlagExplorer.API.Tests", "FlagExplorer.API.Tests\FlagExplorer.API.Tests.csproj", "{B4B71C2A-7447-4502-900C-5F42874DC3E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlagExplorer.API.IntegrationTests", "FlagExplorer.API.IntegrationTests\FlagExplorer.API.IntegrationTests.csproj", "{61C7A128-B417-4296-BD61-7FBAD0078635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlagExplorer.BlazorApp.Tests", "FlagExplorer.BlazorApp.Tests\FlagExplorer.BlazorApp.Tests.csproj", "{A60EBB5B-581E-457B-BD68-044C17178B59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{B4B71C2A-7447-4502-900C-5F42874DC3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4B71C2A-7447-4502-900C-5F42874DC3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4B71C2A-7447-4502-900C-5F42874DC3E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C7A128-B417-4296-BD61-7FBAD0078635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C7A128-B417-4296-BD61-7FBAD0078635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C7A128-B417-4296-BD61-7FBAD0078635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C7A128-B417-4296-BD61-7FBAD0078635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60EBB5B-581E-457B-BD68-044C17178B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60EBB5B-581E-457B-BD68-044C17178B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60EBB5B-581E-457B-BD68-044C17178B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60EBB5B-581E-457B-BD68-044C17178B59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

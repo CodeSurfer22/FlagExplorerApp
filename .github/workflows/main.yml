@@ -1,5 +1,5 @@
 name: Build and Test (.NET & Blazor)
-# test
+
 on:
   push:
     branches: [ "main" ]
@@ -25,21 +25,20 @@ jobs:
     - name: Build Solution
       run: dotnet build FlagExplorerApp.sln --no-restore --configuration Release
 
-    - name: Run Backend Tests
-      run: |
-        dotnet test FlagExplorer.Server.Tests/FlagExplorer.Server.Tests.csproj --no-build --verbosity normal
+    - name: Run API Unit Tests
+      run: dotnet test FlagExplorer.API.Tests/FlagExplorer.API.Tests.csproj --no-build --verbosity normal
 
-    - name: Run Frontend Tests
-      run: |
-        dotnet test FlagExplorer.Client.Tests/FlagExplorer.Client.Tests.csproj --no-build --verbosity normal
+    - name: Run API Integration Tests
+      run: dotnet test FlagExplorer.API.IntegrationTests/FlagExplorer.API.IntegrationTests.csproj --no-build --verbosity normal
 
-    - name: Publish Backend
-      run: |
-        dotnet publish FlagExplorer.Server/FlagExplorer.Server.csproj -c Release -o ./publish/backend
+    - name: Run Blazor Frontend Tests
+      run: dotnet test FlagExplorer.BlazorApp.Tests/FlagExplorer.BlazorApp.Tests.csproj --no-build --verbosity normal
 
-    - name: Publish Frontend (Blazor)
-      run: |
-        dotnet publish FlagExplorer.Client/FlagExplorer.Client.csproj -c Release -o ./publish/frontend
+    - name: Publish API Backend
+      run: dotnet publish FlagExplorer.API/FlagExplorer.API.csproj -c Release -o ./publish/backend
+
+    - name: Publish Blazor Frontend
+      run: dotnet publish FlagExplorer.Client/FlagExplorer.Client.csproj -c Release -o ./publish/frontend
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3

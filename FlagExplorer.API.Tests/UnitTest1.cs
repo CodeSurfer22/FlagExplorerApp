@@ -50,6 +50,58 @@ namespace FlagExplorer.API.Tests
             Assert.Equal(1000000, returnedCountry.Population);
         }
 
+        [Fact]
+        public async Task Get_ReturnsEmptyList_WhenNoCountries()
+        {
+            var mockService = new Mock<ICountryService>();
+            mockService.Setup(s => s.GetAllCountriesAsync())
+                       .ReturnsAsync(new List<Country>());
+
+            var controller = new CountriesController(mockService.Object);
+            var result = await controller.Get();
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var countries = Assert.IsType<List<Country>>(okResult.Value);
+            Assert.Empty(countries);
+        }
+
+        [Fact]
+        public async Task Get_ByName_ReturnsCountry_WhenFound()
+        {
+            var mockService = new Mock<ICountryService>();
+            var expectedCountry = new Country
+            {
+                Name = new NameData { Common = "France" },
+                Flags = new FlagsData { Png = "france.png" },
+                Capital = new List<string> { "Paris" },
+                Population = 67000000
+            };
+
+            mockService.Setup(s => s.GetCountryByNameAsync("France"))
+                       .ReturnsAsync(expectedCountry);
+
+            var controller = new CountriesController(mockService.Object);
+            var result = await controller.Get("France");
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var country = Assert.IsType<Country>(okResult.Value);
+            Assert.Equal("France", country.Name.Common);
+        }
+
+        [Fact]
+        public async Task Get_ByName_ReturnsNotFound_WhenCountryIsNull()
+        {
+            var mockService = new Mock<ICountryService>();
+            mockService.Setup(s => s.GetCountryByNameAsync("Atlantis"))
+                       .ReturnsAsync((Country?)null);
+
+            var controller = new CountriesController(mockService.Object);
+            var result = await controller.Get("Atlantis");
+
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
+
+
     }
 
 }
